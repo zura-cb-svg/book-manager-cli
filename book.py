@@ -95,3 +95,54 @@ class BookManager:
            print("no file yet")
        except json.JSONDecodeError:
            print("failed to load books")
+
+manager = BookManager()
+manager.load_from_file()
+
+def main():
+    while True:
+        print("\n---MENU---")
+        print("1 - Add book")
+        print("2 - Show books")
+        print("3 - Search book")
+        print("4 - Delete book")
+        print("5 - Update book")
+        print("6 - Count by author")
+        print("7 - Exit")
+
+        choice = input("Choose: ")
+
+        if choice == "1":
+            title = input("title: ")
+            author = input("author: ")
+            year = int(input("year: "))
+            book = Book(title, author, year)
+            manager.add_book(book)
+            manager.save_to_file()
+
+        elif choice == "2":
+            manager.show_books()
+
+        elif choice == "3":
+            title = input("title: ")
+            manager.search_book(title)
+
+        elif choice == "4":
+            title = input("title: ")
+            manager.delete_book(title)
+            manager.save_to_file()
+
+        elif choice == "5":
+            title = input("title: ")
+            manager.update_book(title)
+            manager.save_to_file()
+
+        elif choice == "6":
+            author = input("author: ")
+            manager.count_by_author(author)
+
+        elif choice == "7":
+            print("Goodbye")
+            break
+
+main()
