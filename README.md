@@ -15,7 +15,8 @@ Simple command-line application to manage books.
 - JSON (file storage)
 
 ## How to run
+
 ```bash
 python book.py
-
-Next: refactor project structure (main / models / manager)
+Next steps
+-Refactor project structure (main / models / manager)
