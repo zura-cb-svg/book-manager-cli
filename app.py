@@ -1,27 +1,27 @@
 from flask import Flask, render_template, request, redirect
 from manager.book_manager import BookManager
 from models.book import Book
+import os
 
 app = Flask(__name__)
 
-# init manager
 manager = BookManager()
 manager.load_from_file()
 
 
-# 🏠 HOME → გადავამისამართებთ books-ზე
+# 👉 მთავარი გვერდი პირდაპირ books-ზე გადადის
 @app.route("/")
 def home():
     return redirect("/books")
 
 
-# 📚 SHOW BOOKS
+# 📚 წიგნების სია
 @app.route("/books")
 def books():
     return render_template("books.html", books=manager.books)
 
 
-# ➕ ADD BOOK
+# ➕ დამატება
 @app.route("/add", methods=["GET", "POST"])
 def add_book():
     if request.method == "POST":
@@ -43,7 +43,7 @@ def add_book():
     return render_template("add.html")
 
 
-# ❌ DELETE BOOK
+# ❌ წაშლა
 @app.route("/delete")
 def delete_book():
     title = request.args.get("title")
@@ -57,7 +57,7 @@ def delete_book():
     return redirect("/books")
 
 
-# ✏️ UPDATE BOOK
+# ✏️ განახლება
 @app.route("/update", methods=["GET", "POST"])
 def update_book():
     title = request.args.get("title")
@@ -87,25 +87,22 @@ def update_book():
     return render_template("update.html", title=title)
 
 
-# 🔍 SEARCH
+# 🔍 ძებნა
 @app.route("/search", methods=["GET", "POST"])
 def search():
     results = []
 
     if request.method == "POST":
-        query = request.form.get("query")
+        query = request.form.get("query").lower()
 
-        if query:
-            query = query.lower()
-            for book in manager.books:
-                if query in book.title.lower() or query in book.author.lower():
-                    results.append(book)
+        for book in manager.books:
+            if query in book.title.lower() or query in book.author.lower():
+                results.append(book)
 
     return render_template("search.html", results=results)
 
 
-# 🚀 IMPORTANT FOR RENDER
-# ეს არ გამოიყენება Render-ზე (gunicorn იყენებს app-ს)
-# მაგრამ ლოკალურად საჭიროა
+# 🚀 RUN (Render-სთვის)
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
