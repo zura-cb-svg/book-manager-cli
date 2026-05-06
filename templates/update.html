@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Update Book</h2>
+
+<form method="POST">
+    Title: <input name="title"><br><br>
+    Author: <input name="author"><br><br>
+    Year: <input name="year"><br><br>
+    <button>Update</button>
+</form>
+
+<a href="/books">⬅ Back</a>
+{% endblock %}

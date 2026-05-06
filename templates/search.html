@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>🔍 Search Books</h2>
+
+<form method="POST">
+    <input name="query" placeholder="Search..." required>
+    <button>Search</button>
+</form>
+
+<br>
+
+{% if results %}
+    {% for book in results %}
+        <div class="card">
+            <b>{{ book.title }}</b><br>
+            Author: {{ book.author }}<br>
+            Year: {{ book.year }}
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No results 😢</p>
+{% endif %}
+
+{% endblock %}

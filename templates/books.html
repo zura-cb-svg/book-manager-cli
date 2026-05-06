@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>📚 All Books</h2>
+
+{% if books %}
+
+    {% for book in books %}
+        <div class="card">
+            <h3>{{ book.title }}</h3>
+            <p>👤 {{ book.author }}</p>
+            <p>📅 {{ book.year }}</p>
+
+            <a href="/delete?title={{ book.title }}" 
+               onclick="return confirm('Delete this book?')">❌ Delete</a>
+            |
+            <a href="/update?title={{ book.title }}">✏️ Update</a>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <p>No books yet 😢</p>
+{% endif %}
+
+{% endblock %}

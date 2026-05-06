@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    margin: 0;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    padding: 15px 30px;
+}
+
+.navbar a {
+    color: #38bdf8;
+    margin-left: 15px;
+}
+
+.navbar a:hover {
+    color: white;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+/* CARDS */
+.card {
+    background: #1e293b;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+}
+
+/* BUTTONS */
+button {
+    background: #38bdf8;
+    color: black;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+
+/* INPUT */
+input {
+    padding: 8px;
+    margin: 5px 0;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+}
+
+/* LINKS */
+a {
+    text-decoration: none;
+}
+
+a[href*="delete"] {
+    color: #f87171;
+}
+
+a[href*="update"] {
+    color: #4ade80;
+}
