@@ -2,25 +2,36 @@
 
 {% block content %}
 
-<h2>📚 All Books</h2>
+<h2 class="mb-3">📚 Books</h2>
 
-{% if books %}
+<a href="/add" class="btn btn-success mb-3">➕ Add Book</a>
+<a href="/search" class="btn btn-primary mb-3">🔍 Search</a>
 
-    {% for book in books %}
-        <div class="card">
-            <h3>{{ book.title }}</h3>
-            <p>👤 {{ book.author }}</p>
-            <p>📅 {{ book.year }}</p>
+<div class="table-responsive">
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-            <a href="/delete?title={{ book.title }}" 
-               onclick="return confirm('Delete this book?')">❌ Delete</a>
-            |
-            <a href="/update?title={{ book.title }}">✏️ Update</a>
-        </div>
-    {% endfor %}
-
-{% else %}
-    <p>No books yet 😢</p>
-{% endif %}
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.year }}</td>
+            <td>
+                <a href="/delete?title={{ book.title }}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="/update?title={{ book.title }}" class="btn btn-warning btn-sm">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
 
 {% endblock %}

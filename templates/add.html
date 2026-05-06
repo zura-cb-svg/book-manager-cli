@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Add Book</h2>
+
+<h2>➕ Add Book</h2>
 
 <form method="POST">
-    Title: <input name="title"><br><br>
-    Author: <input name="author"><br><br>
-    Year: <input name="year"><br><br>
-    <button>Add</button>
+    <input name="title" placeholder="Title" class="form-control mb-2" required>
+    <input name="author" placeholder="Author" class="form-control mb-2" required>
+    <input name="year" placeholder="Year" class="form-control mb-2" required>
+
+    <button class="btn btn-success w-100">Add</button>
 </form>
 
-<a href="/">⬅ Back</a>
 {% endblock %}

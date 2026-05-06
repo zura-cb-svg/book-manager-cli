@@ -71,3 +71,23 @@ a[href*="delete"] {
 a[href*="update"] {
     color: #4ade80;
 }
+body {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+}
+
+input, button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
