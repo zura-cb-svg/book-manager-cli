@@ -1,23 +1,15 @@
-print("APP STARTED")
 from flask import Flask, render_template, request, redirect
 from manager.book_manager import BookManager
 from models.book import Book
 
 app = Flask(__name__)
 
+# init manager
 manager = BookManager()
 manager.load_from_file()
 
 
-@app.route("/test")
-def test():
-    return "WORKING"
-
-
-@app.route("/test")
-def test():
-    return "OK WORKS"
-# 🏠 HOME (FIXED)
+# 🏠 HOME → გადავამისამართებთ books-ზე
 @app.route("/")
 def home():
     return redirect("/books")
@@ -101,15 +93,19 @@ def search():
     results = []
 
     if request.method == "POST":
-        query = request.form.get("query").lower()
+        query = request.form.get("query")
 
-        for book in manager.books:
-            if query in book.title.lower() or query in book.author.lower():
-                results.append(book)
+        if query:
+            query = query.lower()
+            for book in manager.books:
+                if query in book.title.lower() or query in book.author.lower():
+                    results.append(book)
 
     return render_template("search.html", results=results)
 
 
-# 🚀 RUN (LOCAL ONLY)
+# 🚀 IMPORTANT FOR RENDER
+# ეს არ გამოიყენება Render-ზე (gunicorn იყენებს app-ს)
+# მაგრამ ლოკალურად საჭიროა
 if __name__ == "__main__":
     app.run(debug=True)
