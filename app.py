@@ -8,10 +8,10 @@ manager = BookManager()
 manager.load_from_file()
 
 
-# 🏠 HOME
+# 🏠 HOME (FIXED)
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return redirect("/books")
 
 
 # 📚 SHOW BOOKS
@@ -101,9 +101,6 @@ def search():
     return render_template("search.html", results=results)
 
 
-# 🚀 RUN
-import os
-
+# 🚀 RUN (LOCAL ONLY)
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
