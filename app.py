@@ -8,6 +8,10 @@ manager = BookManager()
 manager.load_from_file()
 
 
+@app.route("/test")
+def test():
+    return "WORKING"
+
 # 🏠 HOME (FIXED)
 @app.route("/")
 def home():
