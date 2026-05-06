@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h2>✏️ Update Book</h2>
+<h2 class="text-center">➕ Add Book</h2>
 
 <form method="POST">
-    <input name="title" placeholder="New Title" class="form-control mb-2">
-    <input name="author" placeholder="New Author" class="form-control mb-2">
-    <input name="year" placeholder="New Year" class="form-control mb-2">
+<input name="title" placeholder="Title" class="form-control mb-2" required>
+<input name="author" placeholder="Author" class="form-control mb-2" required>
+<input name="year" placeholder="Year" class="form-control mb-2" required>
 
-    <button class="btn btn-warning w-100">Update</button>
+<button class="btn btn-success w-100">Add</button>
 </form>
 
 {% endblock %}

@@ -2,29 +2,31 @@
 
 {% block content %}
 
-<h2>🔍 Search</h2>
+<h2 class="text-center">🔍 Search</h2>
 
 <form method="POST" class="mb-3">
-    <input name="query" placeholder="Search..." class="form-control mb-2">
-    <button class="btn btn-primary w-100">Search</button>
+<input name="query" placeholder="Search..." class="form-control mb-2">
+<button class="btn btn-primary w-100">Search</button>
 </form>
 
 {% if results %}
 <div class="table-responsive">
-<table class="table table-dark">
-    <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Year</th>
-    </tr>
+<table class="table table-dark text-center">
 
-    {% for book in results %}
-    <tr>
-        <td>{{ book.title }}</td>
-        <td>{{ book.author }}</td>
-        <td>{{ book.year }}</td>
-    </tr>
-    {% endfor %}
+<tr>
+<th>Title</th>
+<th>Author</th>
+<th>Year</th>
+</tr>
+
+{% for book in results %}
+<tr>
+<td>{{ book.title }}</td>
+<td>{{ book.author }}</td>
+<td>{{ book.year }}</td>
+</tr>
+{% endfor %}
+
 </table>
 </div>
 {% endif %}

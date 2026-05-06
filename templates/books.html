@@ -2,36 +2,50 @@
 
 {% block content %}
 
-<h2 class="mb-3">📚 Books</h2>
+<h2 class="mb-3 text-center">📚 Books</h2>
 
-<a href="/add" class="btn btn-success mb-3">➕ Add Book</a>
-<a href="/search" class="btn btn-primary mb-3">🔍 Search</a>
+<a href="/add" class="btn btn-success mb-3 w-100">➕ Add Book</a>
+
+{% if books %}
 
 <div class="table-responsive">
-<table class="table table-dark table-striped">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+<table class="table table-dark table-striped text-center">
 
-    <tbody>
-        {% for book in books %}
-        <tr>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.year }}</td>
-            <td>
-                <a href="/delete?title={{ book.title }}" class="btn btn-danger btn-sm">Delete</a>
-                <a href="/update?title={{ book.title }}" class="btn btn-warning btn-sm">Edit</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+<thead>
+<tr>
+<th>Title</th>
+<th>Author</th>
+<th>Year</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+{% for book in books %}
+<tr>
+<td>{{ book.title }}</td>
+<td>{{ book.author }}</td>
+<td>{{ book.year }}</td>
+
+<td>
+<a href="/delete?title={{ book.title }}"
+onclick="return confirm('Delete this book?')"
+class="btn btn-danger btn-sm">Delete</a>
+
+<a href="/update?title={{ book.title }}"
+class="btn btn-warning btn-sm">Edit</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+
 </table>
 </div>
+
+{% else %}
+<div class="text-center mt-4">
+<p class="text-muted">No books yet 📭</p>
+</div>
+{% endif %}
 
 {% endblock %}
