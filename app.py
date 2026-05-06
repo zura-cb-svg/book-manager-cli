@@ -1,3 +1,4 @@
+print("APP STARTED")
 from flask import Flask, render_template, request, redirect
 from manager.book_manager import BookManager
 from models.book import Book
@@ -12,6 +13,10 @@ manager.load_from_file()
 def test():
     return "WORKING"
 
+
+@app.route("/test")
+def test():
+    return "OK WORKS"
 # 🏠 HOME (FIXED)
 @app.route("/")
 def home():
