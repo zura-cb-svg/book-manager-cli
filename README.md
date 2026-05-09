@@ -1,60 +1,24 @@
-# 📚 Book Manager CLI
+# 📚 Book Manager Web App
 
-A simple command-line application to manage books using Python.
+A simple web application built with Flask to manage books.
 
----
+## Features
+- Add books
+- Update books
+- Delete books
+- Search books
+- Input validation
 
-## 🚀 Features
+## Technologies Used
+- Python
+- Flask
+- HTML
 
-* Add book
-* Show books
-* Search books
-* Delete book
-* Update book
-* Count books by author
-* Sort books by year
+## How to run
+1. Install Python
+2. Run:
 
----
+python app.py
 
-## 🧱 Project Structure
-
-```
-book-manager-cli/
-│
-├── main.py
-├── models/
-│   └── book.py
-├── manager/
-│   └── book_manager.py
-├── utils/
-│   └── input_utils.py
-```
-
----
-
-## 💾 Data Storage
-
-Books are saved in a JSON file (`books.json`).
-
----
-
-## ▶️ How to Run
-
-```
-python main.py
-```
-
----
-
-## 🛠 Technologies
-
-* Python
-* OOP (Object-Oriented Programming)
-* JSON
-
----
-
-## 📌 Status
-
-Finished basic version ✅
-Ready for improvements 🚀
+3. Open browser:
+http://127.0.0.1:5000/books

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from manager.book_manager import BookManager
 from models.book import Book
-import os
 
 app = Flask(__name__)
 
@@ -9,41 +8,51 @@ manager = BookManager()
 manager.load_from_file()
 
 
-# 👉 მთავარი გვერდი პირდაპირ books-ზე გადადის
 @app.route("/")
 def home():
     return redirect("/books")
 
 
-# 📚 წიგნების სია
 @app.route("/books")
 def books():
     return render_template("books.html", books=manager.books)
 
 
-# ➕ დამატება
 @app.route("/add", methods=["GET", "POST"])
 def add_book():
+    error = None
+
     if request.method == "POST":
         title = request.form.get("title")
         author = request.form.get("author")
         year = request.form.get("year")
 
-        try:
-            year = int(year)
-        except:
-            return "Invalid year!"
+        if title.strip() == "" or author.strip() == "":
+            error = "Title and Author are required"
 
-        new_book = Book(title, author, year)
-        manager.add_book(new_book)
-        manager.save_to_file()
+        else:
+            try:
+                year = int(year)
+                if year < 0:
+                    error = "Year must be positive"
+            except:
+                error = "Invalid year"
 
-        return redirect("/books")
+            if not error:
+                for book in manager.books:
+                    if book.title == title:
+                        error = "Book with this title already exists"
+                        break
 
-    return render_template("add.html")
+            if not error:
+                new_book = Book(title, author, year)
+                manager.add_book(new_book)
+                manager.save_to_file()
+                return redirect("/books")
+
+    return render_template("add.html", error=error)
 
 
-# ❌ წაშლა
 @app.route("/delete")
 def delete_book():
     title = request.args.get("title")
@@ -57,37 +66,45 @@ def delete_book():
     return redirect("/books")
 
 
-# ✏️ განახლება
 @app.route("/update", methods=["GET", "POST"])
 def update_book():
     title = request.args.get("title")
+    error = None
+
+    book_to_edit = None
+    for book in manager.books:
+        if book.title == title:
+            book_to_edit = book
+            break
 
     if request.method == "POST":
         new_title = request.form.get("title")
         new_author = request.form.get("author")
         new_year = request.form.get("year")
 
-        try:
-            new_year = int(new_year)
-        except:
-            return "Invalid year!"
+        if new_title.strip() == "":
+            error = "Title cannot be empty"
 
-        for book in manager.books:
-            if book.title == title:
-                if new_title:
-                    book.title = new_title
-                if new_author:
-                    book.author = new_author
-                book.year = new_year
-                break
+        else:
+            try:
+                new_year = int(new_year)
+            except:
+                error = "Invalid year"
 
-        manager.save_to_file()
-        return redirect("/books")
+            if not error:
+                for book in manager.books:
+                    if book.title == title:
+                        book.title = new_title
+                        book.author = new_author
+                        book.year = new_year
+                        break
 
-    return render_template("update.html", title=title)
+                manager.save_to_file()
+                return redirect("/books")
+
+    return render_template("update.html", book=book_to_edit, error=error)
 
 
-# 🔍 ძებნა
 @app.route("/search", methods=["GET", "POST"])
 def search():
     results = []
@@ -102,7 +119,5 @@ def search():
     return render_template("search.html", results=results)
 
 
-# 🚀 RUN (Render-სთვის)
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
